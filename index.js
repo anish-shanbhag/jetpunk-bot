@@ -17,18 +17,14 @@ const password = require("./password");
   while (true) {
     await page.click("div.left-nav > div:nth-child(2) > a");
     try {
-      await page.waitFor(".answer-display div", {
-        timeout: 1000
-      });
+      await page.waitFor(".answer-display div", { timeout: 1000 });
       await page.waitFor(100);
       const answers = await page.$$eval(".answer-display div", divs => divs.map(div => {
         const blank = div.querySelector("span span");
         return blank ? blank.textContent : div.textContent;
       }));
       await page.click("#start-button");
-      await page.waitFor(() => document.querySelector("#quiz-controls :nth-child(2)").style.display !== "none", {
-        timeout: 1000
-      });
+      await page.waitFor(() => document.querySelector("#quiz-controls :nth-child(2)").style.display !== "none", { timeout: 1000 });
       await page.waitFor(100);
       const questions = await page.$eval("#current-score :nth-child(2)", div => div.textContent.split(String.fromCharCode(160))[2].split(" ")[0]);
       if (answers.length != questions) continue;
@@ -39,9 +35,7 @@ const password = require("./password");
         });
       }
       try {
-        await page.waitFor("#new-level-modal .close", {
-          timeout: 1000
-        });
+        await page.waitFor("#new-level-modal .close", { timeout: 1000 });
         await page.click("#new-level-modal .close");
       } catch {}
       await page.waitFor("#post-game-boxes");
