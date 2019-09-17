@@ -4,10 +4,6 @@ const password = require("./password");
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.setViewport({
-    width: 1000,
-    height: 1000
-  })
   await page.goto("https://www.jetpunk.com");
   await page.waitFor("div.nav-button.login-link > a");
   await page.click("div.nav-button.login-link > a");
